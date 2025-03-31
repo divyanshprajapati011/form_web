@@ -99,3 +99,4 @@ visions==0.7.4
 watchdog==6.0.0
 xyzservices==2024.9.0
 yarl==1.18.3
+mysql-connector-python
