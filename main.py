@@ -1,5 +1,5 @@
 import streamlit as st
-import mysql.connector
+# import mysql.connector
 
 
 st.header("welcome to divycart ")
