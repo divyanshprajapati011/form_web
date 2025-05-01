@@ -5,12 +5,12 @@ from mysql.connector import Error
 st.header("Welcome to Divycart")
 
 try:
-    db = mysql.connector.connect(
-        host="localhost",
-        user="root",
-        password="",
-        database="form"
-    )
+  db = mysql.connector.connect(
+    host=st.secrets["host"],
+    user=st.secrets["user"],
+    password=st.secrets["password"],
+    database=st.secrets["database"]
+  )
 
     if db.is_connected():
         st.success("Connected to the database")
