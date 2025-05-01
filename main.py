@@ -1,35 +1,40 @@
 import streamlit as st
 import mysql.connector
+from mysql.connector import Error
 
+st.header("Welcome to Divycart")
 
-st.header("welcome to divycart ")
+try:
+    db = mysql.connector.connect(
+        host="localhost",
+        user="root",
+        password="",
+        database="form"
+    )
 
-db = mysql.connector.connect(
-    host="localhost",
-    user="root",
-    password="",
-    database="form"
-)
+    if db.is_connected():
+        st.success("Connected to the database")
 
-mycursor = db.cursor()
+    mycursor = db.cursor()
 
+    name = st.text_input("Enter your name: ")
+    fname = st.text_input("Enter your father's name: ")
+    email = st.text_input("Enter your email: ")
+    add = st.text_area("Enter your address: ")
+    class_data = st.selectbox("Select your class", (1, 2, 3, 4, 5, 6, 7, 8, 9, 10))
 
-st.header("welcome to divycart ")
+    button = st.button("Done")
 
-name = st.text_input("enter your name : ")
-fname = st.text_input("enter your father name : ")
-email = st.text_input("enter your email : ")
-add = st.text_area("enter your text : ")
-class_data = st.selectbox("select your class ",(1,2,3,4,5,6,7,8,9,10))
+    if button:
+        query = "INSERT INTO entry(name, fname, email, `add`, class) VALUES (%s, %s, %s, %s, %s)"
+        values = (name, fname, email, add, class_data)
+        try:
+            mycursor.execute(query, values)
+            db.commit()
+            st.success(f"Thank you, {name}! Your entry has been recorded.")
+        except Error as e:
+            st.error(f"Error: {e}")
+            db.rollback()
 
-button = st.button("Done")
-
-if button :
-    # st.markdown(f"""
-    # name : {name} , father name : {fname}, email : {email}, address : {add} , class data : {class_data}""")
-    query="INSERT INTO entry(name, fname, email, `add`, class) VALUES (%s, %s, %s, %s, %s)"
-    values=(name,fname,email,add,class_data)
-    mycursor.execute(query,values)
-    db.commit()
-    st.success(f"Thank you, {name}! Your entry has been recorded.")
-
+except Error as e:
+    st.error(f"Error connecting to MySQL: {e}")
