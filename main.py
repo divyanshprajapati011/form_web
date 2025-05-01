@@ -5,12 +5,13 @@ from mysql.connector import Error
 st.header("Welcome to Divycart")
 
 try:
-  db = mysql.connector.connect(
-    host=st.secrets["host"],
-    user=st.secrets["user"],
-    password=st.secrets["password"],
-    database=st.secrets["database"]
-  )
+    db = mysql.connector.connect(
+        host="your-aiven-hostname",
+        user="your-aiven-username",
+        password="your-aiven-password",
+        database="your-aiven-database-name",
+        port=3306
+    )
 
     if db.is_connected():
         st.success("Connected to the database")
