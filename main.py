@@ -6,10 +6,10 @@ st.header("Welcome to Divycart")
 
 try:
     db = mysql.connector.connect(
-        host="your-aiven-hostname",
-        user="your-aiven-username",
-        password="your-aiven-password",
-        database="your-aiven-database-name",
+        host="mysql-1411f923-deepakprajap7067-ca16.l.aivencloud.com",
+        user="avnadmin",
+        password="AVNS__BfL8XnsBWVsy8hAH9d",
+        database="defaultdb",
         port=3306
     )
 
